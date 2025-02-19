@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Code Optimizer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #1e1e2e;
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+        .sidebar {
+            width: 350px;
+            background-color: #2a2a3a;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+            position: fixed;
+            left: 0;
+            top: 0;
+            box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        .content {
+            margin-left: 370px;
+            padding: 20px;
+        }
+        textarea {
+            background-color: #333;
+            color: white;
+            border: 1px solid #555;
+        }
+        pre {
+            background: #222;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+        .graph-container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>AI Code Optimizer</h2>
+    <label for="codeInput">Paste your Python Code:</label>
+    <textarea id="codeInput" class="form-control" rows="6"></textarea>
+    <button class="btn btn-success mt-3" onclick="optimizeCode()">Optimize Code</button>
+    
+    <h4 class="mt-4">Optimized Code:</h4>
+    <pre id="optimizedCode">Awaiting Input...</pre>
+
+    <h4 class="mt-4">Time & Space Complexity:</h4>
+    <pre id="complexityAnalysis">Awaiting Input...</pre>
+
+    <h4 class="mt-4">Performance Metrics:</h4>
+    <div class="graph-container">
+        <img id="performanceGraph" src="" alt="Performance Graph" class="img-fluid">
+    </div>
+</div>
+
+<div class="content">
+    <h3>Code Optimization Explanation:</h3>
+    <pre id="codeExplanation">Awaiting Analysis...</pre>
+</div>
+
+<script>
+    async function optimizeCode() {
+        let code = document.getElementById("codeInput").value;
+
+        let response = await fetch("/optimize", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ code: code })
+        });
+
+        let result = await response.json();
+
+        document.getElementById("optimizedCode").textContent = result.optimized_code || "Error fetching data";
+        document.getElementById("complexityAnalysis").textContent = result.complexity_analysis || "N/A";
+        document.getElementById("codeExplanation").textContent = result.optimized_code || "N/A";
+
+        if (result.performance_graph) {
+            document.getElementById("performanceGraph").src = result.performance_graph;
+        }
+    }
+</script>
+
+</body>
+</html>
