@@ -20,8 +20,9 @@ Tweax is a **VS Code extension** that optimizes Python code in real time, provid
 
 #### **Clone the Repository:**
 ```sh
-git clone https://github.com/D-Vika-shan/Tweax.git
-cd Tweax
+git clone https://github.com/harshini1504/Tweax-extension.git
+cd Tweax-extension
+
 ```
 
 #### **Install Dependencies:**
